@@ -1,0 +1,32 @@
+{
+  "name": "pets-tracking",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TonyMtz/pets-tracker.git"
+  },
+  "author": "TonyMtz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TonyMtz/pets-tracker/issues"
+  },
+  "homepage": "https://github.com/TonyMtz/pets-tracker",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-clean": "^0.3.1",
+    "gulp-compass": "^1.2.0",
+    "gulp-concat": "^2.3.4",
+    "gulp-ember-handlebars": "^0.6.0",
+    "gulp-inject": "^1.0.1",
+    "gulp-jshint": "^1.8.4",
+    "gulp-livereload": "^2.1.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-watch": "^0.6.9",
+    "jshint-stylish": "^0.4.0"
+  }
+}

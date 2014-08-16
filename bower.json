@@ -1,0 +1,13 @@
+{
+  "name": "pets-tracker",
+  "version": "0.0.1",
+  "homepage": "https://github.com/TonyMtz/pets-tracker",
+  "authors": [
+    "TonyMtz"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "ember-data": "~0.0.14"
+  }
+}
