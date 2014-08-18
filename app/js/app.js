@@ -1,7 +1,11 @@
 ;(function() {
   'use strict';
 
-  var root = this,
+  var DS = this.DS,
     Ember = this.Ember;
-  root.App = Ember.Application.create();
+
+  this.App = Ember.Application.create();
+  this.App.ApplicationAdapter = DS.RESTAdapter.extend({
+    host: 'http://localhost:1337',
+  });
 }.call(this));

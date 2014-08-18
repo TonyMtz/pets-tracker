@@ -12,7 +12,7 @@ var
   clean = require('gulp-clean'),
   jshint = require('gulp-jshint'),
   stylish = require('jshint-stylish'),
-  livereload = require('gulp-livereload'),
+  connect = require('gulp-connect'),
   /*
    * Other
    */
@@ -26,6 +26,9 @@ var
     },
     dest: {
       base: 'build',
+      clean: ['build/**/*.*', 'build/**/*', 'build'],
+      index: 'build/index.html',
+      injectable: ['build/js/**/*.js', 'build/css/**/*.css'],
       scripts: 'build/js',
       styles: 'build/css'
     }
@@ -36,25 +39,24 @@ var
  */
 
 gulp.task('clean', function () {
-  return gulp.src(['build/**/*.*', 'build/**/*', 'build'])
+  return gulp.src(paths.dest.clean)
     .pipe(clean());
 });
 
 gulp.task('lint', ['clean'], function() {
   return gulp.src(paths.src.scripts)
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('compass', ['clean'], function() {
-  return gulp.src('app/styles/*.scss')
+  return gulp.src(paths.src.styles)
     .pipe(compass({
-      css: 'build/css',
+      css: paths.dest.styles,
       sass: 'app/styles',
       logging: false
     }))
-    .pipe(livereload());
+    .pipe(connect.reload());
 });
 
 gulp.task('templates', ['lint'], function() {
@@ -65,32 +67,44 @@ gulp.task('templates', ['lint'], function() {
     }))
     .pipe(concat('templates.js'))
     .pipe(gulp.dest(paths.dest.scripts))
-    .pipe(livereload());
+    .pipe(connect.reload());
 });
 
-gulp.task('scripts', ['lint'], function(prod) {
-  var stream = gulp.src(paths.src.scripts);
-  if (prod) {
-    stream
-      .pipe(uglify({ mangle: false }))
-      .pipe(concat('main.min.js'));
-  }
-  return stream
+gulp.task('scripts', ['lint'], function() {
+  return gulp.src(paths.src.scripts)
+    // .pipe(uglify({ mangle: false }))
+    // .pipe(concat('main.min.js'))
     .pipe(gulp.dest(paths.dest.scripts))
-    .pipe(livereload());
+    .pipe(connect.reload());
 });
 
-gulp.task('inject', ['compass' ,'templates', 'scripts'], function () {
-  return gulp.src('app/index.html')
-    .pipe(inject(gulp.src(['build/js/**/*.js', 'build/css/**/*.css'], { read: false })))
-    .pipe(gulp.dest('build'));
+gulp.task('copy-index', ['scripts', 'templates', 'compass'], function (cb) {
+  return gulp.src(paths.src.index)
+    .pipe(gulp.dest(paths.dest.base));
+});
+
+gulp.task('copy-vendor', ['copy-index'], function (cb) {
+  return gulp.src('vendor/**/*')
+    .pipe(gulp.dest('build/vendor'));
+});
+
+gulp.task('inject', ['copy-index', 'copy-vendor'], function () {
+  return gulp.src(paths.dest.index)
+    .pipe(inject(gulp.src(paths.dest.injectable, { read: false }), {relative: true}))
+    .pipe(gulp.dest(paths.dest.base));
+});
+
+gulp.task('connect', ['inject'],function() {
+  connect.server({
+    root: ['build'],
+    livereload: true
+  });
 });
 
 gulp.task('watch', ['inject'], function() {
-  livereload.listen();
-  gulp.watch(paths.src.styles, ['compass']);
-  gulp.watch(paths.src.templates, ['templates']);
-  gulp.watch(paths.src.scripts, ['scripts']);
+  gulp.watch(paths.src.styles, ['compass', 'inject']);
+  gulp.watch(paths.src.templates, ['templates', 'inject']);
+  gulp.watch(paths.src.scripts, ['scripts', 'inject']);
   gulp.watch(paths.src.index, ['inject']);
 });
 
@@ -99,5 +113,5 @@ gulp.task('watch', ['inject'], function() {
  */
 
 gulp.task('build', ['clean', 'lint', 'compass', 'templates', 'scripts', 'inject']);
-gulp.task('dev', ['clean', 'lint', 'compass', 'templates', 'scripts', 'inject', 'watch']);
+gulp.task('dev', ['clean', 'lint', 'compass', 'templates', 'scripts', 'inject', 'connect', 'watch']);
 gulp.task('default', ['dev']);

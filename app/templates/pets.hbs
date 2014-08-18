@@ -1,0 +1,55 @@
+<header>
+  <h1>All the registered pets</h1>
+  <button type="button" class="btn btn-sm btn-success btn-add" {{action 'openCreateModal'}}>
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
+</header>
+
+<div class="col-md-6">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Sterilized</th>
+        <th>Comments</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each}}
+      <tr>
+        <td>
+          <img {{bind-attr src=img_30}}>
+        </td>
+        <td>
+          <p>{{name}}</p>
+        </td>
+        <td>
+          <p>{{genre}}</p>
+        </td>
+        <td>
+          <span {{bind-attr class=':glyphicon sterilized:glyphicon-ok:glyphicon-remove'}}></span>
+        </td>
+        <td>
+          {{excerpt-tooltip content=comments}}
+        </td>
+        <td>
+          <span>
+            <button type="button" class="btn btn-xs btn-info">
+              <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+            <button type="button" class="btn btn-xs btn-warning">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-xs btn-danger" {{action 'delete' this}}>
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </span>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
