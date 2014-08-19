@@ -28,6 +28,9 @@ module.exports = {
       return res.badRequest('No id provided.');
     }
 
+    console.log('id: ', id);
+    console.log('od: ', criteria);
+
     Pet.find(id, function(err, pet) {
       if (err) {
         return res.send(err, 500);

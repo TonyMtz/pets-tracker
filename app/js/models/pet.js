@@ -21,28 +21,18 @@
       return {
         pets: payload
       };
-    },
-    serialize: function(post, options) {
-      var json = {
-        name: post.get('name'),
-        genre: post.get('genre'),
-        sterilized: post.get('sterilized'),
-        comments: post.get('comments'),
-        img: post.get('img'),
-        isDeleted: post.get('isDeleted')
-      };
-      return json;
-      // var json = {
-      //   POST_TTL: post.get('title'),
-      //   POST_BDY: post.get('body'),
-      //   POST_CMS: post.get('comments').mapProperty('id')
-      // }
-
-      // if (options.includeId) {
-      //   json.POST_ID_ = post.get('id');
-      // }
-
-      // return json;
     }
+    // serialize: function(post, options) {
+    //   var json = {
+    //     name: post.get('name'),
+    //     genre: post.get('genre'),
+    //     sterilized: post.get('sterilized'),
+    //     comments: post.get('comments'),
+    //     img: post.get('img'),
+    //     isDeleted: post.get('isDeleted')
+    //   };
+
+    //   return json;
+    // }
   });
 }.call(this));

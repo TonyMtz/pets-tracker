@@ -5,7 +5,6 @@
     Ember = this.Ember;
 
   App.ExcerptTooltipComponent = Ember.Component.extend({
-    content: '',
     max: 30,
     position: 'bottom',
 
@@ -14,8 +13,8 @@
     },
 
     contentExcerpt: function() {
-      var paragraph = this.get('content'),
-        length = this.get('max'),
+      var paragraph = this.get('content') || '',
+        length = this.get('max') || 30,
         excerpt = paragraph.substr(0, length);
 
       if (paragraph.length > length) {

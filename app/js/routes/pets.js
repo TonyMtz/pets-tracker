@@ -20,12 +20,6 @@
         });
       },
 
-      delete: function(pet) {
-        pet.deleteRecord();
-        // pet.get('isDeleted');
-        pet.save();
-      },
-
       close: function() {
         this.disconnectOutlet({outlet: 'modal', parentView: 'application'});
       },

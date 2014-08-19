@@ -18,22 +18,22 @@
       </tr>
     </thead>
     <tbody>
-      {{#each}}
+      {{#each pet in model}}
       <tr>
         <td>
-          <img {{bind-attr src=img_30}}>
+          <img {{bind-attr src=pet.img}} height="30">
         </td>
         <td>
-          <p>{{name}}</p>
+          <p>{{pet.name}}</p>
         </td>
         <td>
-          <p>{{genre}}</p>
+          <p>{{pet.genre}}</p>
         </td>
         <td>
-          <span {{bind-attr class=':glyphicon sterilized:glyphicon-ok:glyphicon-remove'}}></span>
+          <span {{bind-attr class=':glyphicon pet.sterilized:glyphicon-ok:glyphicon-remove'}}></span>
         </td>
         <td>
-          {{excerpt-tooltip content=comments}}
+          {{excerpt-tooltip content=pet.comments}}
         </td>
         <td>
           <span>
@@ -43,7 +43,7 @@
             <button type="button" class="btn btn-xs btn-warning">
               <span class="glyphicon glyphicon-pencil"></span>
             </button>
-            <button type="button" class="btn btn-xs btn-danger" {{action 'delete' this}}>
+            <button type="button" class="btn btn-xs btn-danger" {{action 'delete' pet}}>
               <span class="glyphicon glyphicon-trash"></span>
             </button>
           </span>

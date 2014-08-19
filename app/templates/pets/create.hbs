@@ -5,14 +5,46 @@
   <h4 class="modal-title">Register new pet</h4>
 </div>
 <div class="modal-body">
-  {{input value=name placeholder='name'}}
-  {{input value=genre placeholder='genre'}}
-  <label>
-    {{input type='checkbox' checked=sterilized}}
-    Sterilized?
-  </label>
-  {{textarea cols="80" rows="6" value=comments}}
-  {{input value=img placeholder='img'}}
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        {{input value=name placeholder="Enter pet's name" class='form-control'}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Genre</label>
+      <div class="col-sm-10">
+        {{!-- <select class="form-control">
+          <option value="female">female</option>
+          <option value="male">male</option>
+        </select> --}}
+        {{input value=genre placeholder='genre' class='form-control'}}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            {{input type='checkbox' checked=sterilized}}
+            Was the pet sterilized?
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Comments</label>
+      <div class="col-sm-10">
+        {{textarea rows='3' value=comments class='form-control'}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+      <div class="col-sm-10">
+        {{input value=img placeholder='img' class='form-control'}}
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-link" data-dismiss="modal" {{action close target="view"}}>Close</button>
